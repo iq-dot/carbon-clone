@@ -1,4 +1,8 @@
 # Eclipse files
-.settings
+.settings/
 .classpath
 .project
+
+# Java generated files
+.class
+target/
