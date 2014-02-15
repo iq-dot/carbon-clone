@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
+	
+	<bean id="executorService" class="java.util.concurrent.Executors"
+		factory-method="newFixedThreadPool"
+		destroy-method="shutdownNow">
+		<constructor-arg value="8" />
+	</bean>
+	
+	<bean id="fileMap" class="java.util.HashMap" />
+	<bean id="resultMap" class="java.util.ArrayList" />
+	<bean id="checksum" class="java.util.zip.CRC32" />
+	
+	<bean id="carbonCopyMgr" class="com.iqdot.CarbonClone.CarbonCopyMgr">
+		<constructor-arg ref="executorService" />
+		<constructor-arg ref="fileMap" />
+		<constructor-arg ref="resultMap" />
+		<property name="buffSize" value="XLarge" />
+		<lookup-method name="getChecksum" bean="checksum" />
+	</bean>
+
+</beans>
